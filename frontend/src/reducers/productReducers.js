@@ -20,6 +20,10 @@ const {
   PRODUCT_CATEGORY_LIST_REQUEST,
   PRODUCT_CATEGORY_LIST_SUCCESS,
   PRODUCT_CATEGORY_LIST_FAIL,
+  PRODUCT_REVIEW_CREATE_RESET,
+  PRODUCT_REVIEW_CREATE_FAIL,
+  PRODUCT_REVIEW_CREATE_SUCCESS,
+  PRODUCT_REVIEW_CREATE_REQUEST,
 } = require("../constants/productConstants");
 
 export const productListReducer = (
@@ -66,6 +70,7 @@ export const productDetailsReducer = (state = { loading: true }, action) => {
       return state;
   }
 };
+
 export const productCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
@@ -80,6 +85,7 @@ export const productCreateReducer = (state = {}, action) => {
       return state;
   }
 };
+
 export const productUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_UPDATE_REQUEST:
@@ -94,6 +100,7 @@ export const productUpdateReducer = (state = {}, action) => {
       return state;
   }
 };
+
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
@@ -103,6 +110,21 @@ export const productDeleteReducer = (state = {}, action) => {
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_DELETE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const productReviewCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_REVIEW_CREATE_REQUEST:
+      return { loading: true };
+    case PRODUCT_REVIEW_CREATE_SUCCESS:
+      return { loading: false, success: true, review: action.payload };
+    case PRODUCT_REVIEW_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_REVIEW_CREATE_RESET:
       return {};
     default:
       return state;
