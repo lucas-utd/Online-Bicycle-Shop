@@ -10,11 +10,22 @@ productRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
     const name = req.query.name || "";
+    const category = req.query.category || "";
     const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
+    const categoryFilter = category ? { category } : {};
     const products = await Product.find({
       ...nameFilter,
+      ...categoryFilter,
     });
     res.send(products);
+  })
+);
+
+productRouter.get(
+  "/categories",
+  expressAsyncHandler(async (req, res) => {
+    const categories = await Product.find().distinct("category");
+    res.send(categories);
   })
 );
 
