@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { listProducts } from "../actions/productActions";
@@ -9,6 +9,7 @@ import Rating from "../components/Rating";
 import { prices, ratings } from "../utils";
 
 export default function SearchScreen(props) {
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     name = "all",
     category = "all",
@@ -72,7 +73,7 @@ export default function SearchScreen(props) {
             <option value="newest">Newest Arrivals</option>
             <option value="lowest">Price: Low to High</option>
             <option value="highest">Price: High to Low</option>
-            <option value="toprated">Avg. Customer Reviews</option>
+            <option value="toprated">Average Reviews</option>
           </select>
         </div>
       </div>
@@ -125,7 +126,7 @@ export default function SearchScreen(props) {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Average Review</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -151,9 +152,54 @@ export default function SearchScreen(props) {
                 <MessageBox>No Product Found</MessageBox>
               )}
               <div className="row center">
-                {products.map((product) => (
-                  <Product key={product._id} product={product}></Product>
-                ))}
+                {products.length <= 6 || currentPage === 1 ? (
+                  products
+                    .slice(0, 6)
+                    .map((product) => (
+                      <Product key={product._id} product={product}></Product>
+                    ))
+                ) : products.length > 7 && currentPage === 2 ? (
+                  products
+                    .slice(7)
+                    .map((product) => (
+                      <Product key={product._id} product={product}></Product>
+                    ))
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="row center">
+                {currentPage && products.length > 7 && (
+                  <div className="pagination">
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => setCurrentPage(1)}
+                    >
+                      First
+                    </button>
+                    {"  "}
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => setCurrentPage(1)}
+                    >
+                      1
+                    </button>
+                    {"  "}
+                    <button
+                      disabled={currentPage === 2}
+                      onClick={() => setCurrentPage(2)}
+                    >
+                      2
+                    </button>
+                    {"  "}
+                    <button
+                      disabled={currentPage === 2}
+                      onClick={() => setCurrentPage(2)}
+                    >
+                      Last
+                    </button>
+                  </div>
+                )}
               </div>
             </>
           )}

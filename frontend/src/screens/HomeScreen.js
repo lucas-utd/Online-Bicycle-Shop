@@ -5,7 +5,6 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
-import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,14 +26,20 @@ export default function HomeScreen() {
         <>
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
           <div className="row center">
-            {currentPage == 1
+            {currentPage === 1
               ? products
                   .slice(0, 8)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))
+              : currentPage === 2
+              ? products
+                  .slice(2, 10)
+                  .map((product) => (
+                    <Product key={product._id} product={product}></Product>
+                  ))
               : products
-                  .slice(8)
+                  .slice(7)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))}
@@ -45,29 +50,36 @@ export default function HomeScreen() {
         {currentPage && (
           <div className="pagination">
             <button
-              disabled={currentPage == 1}
+              disabled={currentPage === 1}
               onClick={() => setCurrentPage(1)}
             >
               First
             </button>
             {"  "}
             <button
-              disabled={currentPage == 1}
+              disabled={currentPage === 1}
               onClick={() => setCurrentPage(1)}
             >
               1
             </button>
             {"  "}
             <button
-              disabled={currentPage == 2}
+              disabled={currentPage === 2}
               onClick={() => setCurrentPage(2)}
             >
               2
             </button>
             {"  "}
             <button
-              disabled={currentPage == 2}
-              onClick={() => setCurrentPage(2)}
+              disabled={currentPage === 3}
+              onClick={() => setCurrentPage(3)}
+            >
+              3
+            </button>
+            {"  "}
+            <button
+              disabled={currentPage === 3}
+              onClick={() => setCurrentPage(3)}
             >
               Last
             </button>

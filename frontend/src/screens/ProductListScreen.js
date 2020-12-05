@@ -3,15 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createProduct,
   deleteProduct,
+
   restoreProduct,
   listProductsAdmin,
+
 } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
+
   PRODUCT_RESTORE_RESET,
+
 } from "../constants/productConstants";
 
 export default function ProductListScreen(props) {
@@ -49,6 +53,7 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
+
     if (successRestore) {
       dispatch({ type: PRODUCT_RESTORE_RESET });
     }
@@ -61,6 +66,7 @@ export default function ProductListScreen(props) {
     successDelete,
     successRestore,
   ]);
+
 
   const deleteHandler = (product) => {
     if (window.confirm("Are you sure to delete?")) {
