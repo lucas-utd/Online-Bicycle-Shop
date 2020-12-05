@@ -35,7 +35,7 @@ const data = {
       price: 220,
       countInStock: 20,
       brand: "Vilano",
-      rating: 4.0,
+      rating: 3.5,
       numReviews: 10,
       description:
         "This economical road bike is built on a lightweight 6061 Aluminum frame. It features Shimano A050 thumb shifters for convenience. This bike is an excellent commuter.",
@@ -83,7 +83,7 @@ const data = {
       price: 3000,
       countInStock: 12,
       brand: "Cube",
-      rating: 4.5,
+      rating: 3.5,
       numReviews: 15,
       description:
         "Cube engineers have carefully crafted the frame to ensure seamless integration of the Bosch drive unit and battery, placing them in the optimum position for safe handling and sleek good looks that you'll be proud of.",
@@ -119,7 +119,7 @@ const data = {
       price: 1450,
       brand: "Diamondback",
       countInStock: 25,
-      rating: 4.7,
+      rating: 3.5,
       numReviews: 3,
       description:
         "Versatile — that's what's always made our progressive trail bikes popular. These are bikes that are as at home blasting down trails alongside long-travel, full-suspension bikes as they are surfing mellow sections of singletrack. The Sync'r is our top of the line, do-it-all aluminum hardtail. The heart of the bike is a low-slung frame that's both playful and confident. We've hung the Sync'r chassis with equally stellar components that include a RockShox Recon RL suspension fork with 140mm of travel and a SRAM SX Eagle 1x12, single-ring drivetrain with a wide, 11-50 gear range. Powerful Shimano hydraulic disc brakes modulate speed precisely, and our own Diamondback AL35 tubeless-compatible wheelset delivers knife-sharp handling with durability at its core.",
@@ -143,7 +143,7 @@ const data = {
       price: 580,
       brand: "Schwinn",
       countInStock: 10,
-      rating: 4.4,
+      rating: 3.4,
       numReviews: 10,
       description:
         "Hit the road with a friend with the Schwinn Twinn Tandem Bicycle. This Schwinn aluminum tandem frame features an extra low step-thru rear bar to comfortably fit smaller riders. A 21-speed Shimano EZ-Fire trigger shifters and a Shimano rear derailleur provide an extended gear range and smooth shifting on every ride. Mechanical disc brakes offer superior all-condition stopping power on the road and on the trail. The main set of handlebars and a Schwinn suspension fork put you in complete control when you ride. Ergonomic grips and plush fitness saddles create a comfortable and enjoyable riding experience. This tandem bike ships ready to be assembled. The Schwinn Twinn Tandem Large Bicycle's wheels measure 26 inches.",
