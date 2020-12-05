@@ -314,3 +314,8 @@ img.large {
 .active {
   font-weight: bold;
 }
+/* Review date */
+.review-date {
+  margin-top: 0;
+  padding-top: 0;
+}

@@ -92,6 +92,7 @@ productRouter.post(
     res.send({ message: "Product Created", product: createdProduct });
   })
 );
+
 productRouter.put(
   "/:id",
   isAuth,
