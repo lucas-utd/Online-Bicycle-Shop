@@ -34,6 +34,7 @@ productRouter.get(
         ? { rating: -1 }
         : { _id: -1 };
     const products = await Product.find({
+      isDeleted: false,
       ...nameFilter,
       ...categoryFilter,
       ...priceFilter,
@@ -64,7 +65,7 @@ productRouter.get(
   "/:id",
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
-    if (product) {
+    if (product && !product.isDeleted) {
       res.send(product);
     } else {
       res.status(404).send({ message: "Product Not Found" });
@@ -100,7 +101,7 @@ productRouter.put(
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
-    if (product) {
+    if (product && !product.isDeleted) {
       product.name = req.body.name;
       product.price = req.body.price;
       product.image = req.body.image;
@@ -122,8 +123,9 @@ productRouter.delete(
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
-    if (product) {
-      const deleteProduct = await product.remove();
+    if (product && !product.isDeleted) {
+      product.isDeleted = true;
+      const deleteProduct = await product.save();
       res.send({ message: "Product Deleted", product: deleteProduct });
     } else {
       res.status(404).send({ message: "Product Not Found" });
@@ -137,7 +139,7 @@ productRouter.post(
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
-    if (product) {
+    if (product && !product.isDeleted) {
       if (product.reviews.find((x) => x.name === req.user.name)) {
         return res
           .status(400)
