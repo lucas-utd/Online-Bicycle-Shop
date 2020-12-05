@@ -45,6 +45,17 @@ productRouter.get(
 );
 
 productRouter.get(
+  "/admin",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const sortOrder = { isDeleted: 1 };
+    const products = await Product.find({}).sort(sortOrder);
+    res.send(products);
+  })
+);
+
+productRouter.get(
   "/categories",
   expressAsyncHandler(async (req, res) => {
     const categories = await Product.find().distinct("category");
@@ -127,6 +138,23 @@ productRouter.delete(
       product.isDeleted = true;
       const deleteProduct = await product.save();
       res.send({ message: "Product Deleted", product: deleteProduct });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
+    }
+  })
+);
+
+productRouter.put(
+  "/:id/restore",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      product.isDeleted = false;
+      const restoredProduct = await product.save();
+      res.send({ message: "Product Restored", product: restoredProduct });
     } else {
       res.status(404).send({ message: "Product Not Found" });
     }

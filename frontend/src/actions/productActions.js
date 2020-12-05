@@ -15,6 +15,9 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_RESTORE_REQUEST,
+  PRODUCT_RESTORE_FAIL,
+  PRODUCT_RESTORE_SUCCESS,
   PRODUCT_CATEGORY_LIST_REQUEST,
   PRODUCT_CATEGORY_LIST_SUCCESS,
   PRODUCT_CATEGORY_LIST_FAIL,
@@ -38,6 +41,23 @@ export const listProducts = ({
     const { data } = await Axios.get(
       `/api/products?name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
     );
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+  }
+};
+
+export const listProductsAdmin = () => async (dispatch, getState) => {
+  dispatch({
+    type: PRODUCT_LIST_REQUEST,
+  });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.get("/api/products/admin", {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
@@ -131,6 +151,29 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
+  }
+};
+
+export const restoreProduct = (productId) => async (dispatch, getState) => {
+  dispatch({ type: PRODUCT_RESTORE_REQUEST, payload: productId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = Axios.put(
+      `/api/products/${productId}/restore`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({ type: PRODUCT_RESTORE_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_RESTORE_FAIL, payload: message });
   }
 };
 
