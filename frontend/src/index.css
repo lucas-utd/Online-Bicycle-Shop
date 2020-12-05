@@ -129,6 +129,9 @@ a.brand {
 .col-2 {
   flex: 2 1 50rem;
 }
+.col-3 {
+  flex: 32 1 75rem;
+}
 .min-30 {
   min-width: 30rem;
 }
@@ -307,4 +310,7 @@ img.large {
   border-radius: 0.5rem 0 0 0.5rem;
   border-right: none;
   margin-left: 0.5rem;
+}
+.active {
+  font-weight: bold;
 }
