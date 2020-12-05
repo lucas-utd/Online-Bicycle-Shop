@@ -28,18 +28,18 @@ export default function HomeScreen() {
           <div className="row center">
             {currentPage === 1
               ? products
-                  .slice(0, 5)
+                  .slice(0, 8)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))
               : currentPage === 2
               ? products
-                  .slice(5, 10)
+                  .slice(2, 10)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))
               : products
-                  .slice(10)
+                  .slice(7)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))}
