@@ -23,6 +23,7 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, required: true },
     numReviews: { type: Number, required: true },
     reviews: [reviewSchema],
+    isDeleted: { type: Boolean, default: false, required: true },
   },
   {
     timestamps: true,
