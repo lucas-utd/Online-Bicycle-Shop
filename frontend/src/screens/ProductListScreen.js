@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createProduct,
   deleteProduct,
-  listProducts,
-} from '../actions/productActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+  restoreProduct,
+  listProductsAdmin,
+} from "../actions/productActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
-} from '../constants/productConstants';
+  PRODUCT_RESTORE_RESET,
+} from "../constants/productConstants";
 
 export default function ProductListScreen(props) {
   const productList = useSelector((state) => state.productList);
@@ -31,6 +33,13 @@ export default function ProductListScreen(props) {
     success: successDelete,
   } = productDelete;
 
+  const productRestore = useSelector((state) => state.productRestore);
+  const {
+    loading: loadingRestore,
+    error: errorRestore,
+    success: successRestore,
+  } = productRestore;
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
@@ -40,12 +49,27 @@ export default function ProductListScreen(props) {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-    dispatch(listProducts({}));
-  }, [createdProduct, dispatch, props.history, successCreate, successDelete]);
+    if (successRestore) {
+      dispatch({ type: PRODUCT_RESTORE_RESET });
+    }
+    dispatch(listProductsAdmin());
+  }, [
+    createdProduct,
+    dispatch,
+    props.history,
+    successCreate,
+    successDelete,
+    successRestore,
+  ]);
 
   const deleteHandler = (product) => {
-    if (window.confirm('Are you sure to delete?')) {
+    if (window.confirm("Are you sure to delete?")) {
       dispatch(deleteProduct(product._id));
+    }
+  };
+  const restoreHandler = (product) => {
+    if (window.confirm("Are you sure to restore?")) {
+      dispatch(restoreProduct(product._id));
     }
   };
   const createHandler = () => {
@@ -63,8 +87,12 @@ export default function ProductListScreen(props) {
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
 
+      {loadingRestore && <LoadingBox></LoadingBox>}
+      {errorRestore && <MessageBox variant="danger">{errorRestore}</MessageBox>}
+
       {loadingCreate && <LoadingBox></LoadingBox>}
       {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -84,29 +112,44 @@ export default function ProductListScreen(props) {
           <tbody>
             {products.map((product) => (
               <tr key={product._id}>
-                <td>{product._id}</td>
+                <td>
+                  {product._id} {product.isDeleted && "(deleted)"}
+                </td>
                 <td>{product.name}</td>
-                <td>{product.price}</td>
+                <td>{`$${product.price}`}</td>
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() =>
-                      props.history.push(`/product/${product._id}/edit`)
-                    }
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => deleteHandler(product)}
-                  >
-                    Delete
-                  </button>
-                </td>
+                {product.isDeleted ? (
+                  <td>
+                    {" "}
+                    <button
+                      type="button"
+                      className="small"
+                      onClick={() => restoreHandler(product)}
+                    >
+                      Restore
+                    </button>
+                  </td>
+                ) : (
+                  <td>
+                    <button
+                      type="button"
+                      className="small"
+                      onClick={() =>
+                        props.history.push(`/product/${product._id}/edit`)
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="small"
+                      onClick={() => deleteHandler(product)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
