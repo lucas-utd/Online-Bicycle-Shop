@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Product from "../components/Product";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
+import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
@@ -14,6 +16,7 @@ export default function HomeScreen() {
   useEffect(() => {
     dispatch(listProducts({}));
   }, [dispatch]);
+
   return (
     <div>
       {loading ? (
@@ -24,12 +27,53 @@ export default function HomeScreen() {
         <>
           {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
           <div className="row center">
-            {products.map((product) => (
-              <Product key={product._id} product={product}></Product>
-            ))}
+            {currentPage == 1
+              ? products
+                  .slice(0, 8)
+                  .map((product) => (
+                    <Product key={product._id} product={product}></Product>
+                  ))
+              : products
+                  .slice(8)
+                  .map((product) => (
+                    <Product key={product._id} product={product}></Product>
+                  ))}
           </div>
         </>
       )}
+      <div className="row center">
+        {currentPage && (
+          <div className="pagination">
+            <button
+              disabled={currentPage == 1}
+              onClick={() => setCurrentPage(1)}
+            >
+              First
+            </button>
+            {"  "}
+            <button
+              disabled={currentPage == 1}
+              onClick={() => setCurrentPage(1)}
+            >
+              1
+            </button>
+            {"  "}
+            <button
+              disabled={currentPage == 2}
+              onClick={() => setCurrentPage(2)}
+            >
+              2
+            </button>
+            {"  "}
+            <button
+              disabled={currentPage == 2}
+              onClick={() => setCurrentPage(2)}
+            >
+              Last
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
