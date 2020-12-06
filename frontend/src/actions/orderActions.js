@@ -1,5 +1,5 @@
-import Axios from 'axios';
-import { CART_EMPTY } from '../constants/cartConstants';
+import Axios from "axios";
+import { CART_EMPTY } from "../constants/cartConstants";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
@@ -22,7 +22,7 @@ import {
   ORDER_DELIVER_REQUEST,
   ORDER_DELIVER_SUCCESS,
   ORDER_DELIVER_FAIL,
-} from '../constants/orderConstants';
+} from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
@@ -30,14 +30,15 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userSignin: { userInfo },
     } = getState();
-    const { data } = await Axios.post('/api/orders', order, {
+    console.log("createOrder " + order.user);
+    const { data } = await Axios.post("/api/orders", order, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
     });
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
     dispatch({ type: CART_EMPTY });
-    localStorage.removeItem('cartItems');
+    localStorage.removeItem("cartItems");
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
@@ -95,7 +96,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('/api/orders/mine', {
+    const { data } = await Axios.get("/api/orders/mine", {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -115,7 +116,7 @@ export const listOrders = () => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get('/api/orders', {
+    const { data } = await Axios.get("/api/orders", {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     console.log(data);
