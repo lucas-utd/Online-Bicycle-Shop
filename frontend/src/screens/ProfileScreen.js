@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { detailsUser, updateUserProfile } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import {
-  USER_UPDATE_PROFILE_RESET,
-  MIN_PASSWORD_LENGTH,
-} from "../constants/userConstants";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 export default function ProfileScreen() {
   const [name, setName] = useState("");
@@ -36,15 +33,13 @@ export default function ProfileScreen() {
   }, [dispatch, userInfo._id, user]);
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch update profile
-    if (password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password must be ${MIN_PASSWORD_LENGTH} characters or longer`);
-    } else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
       alert("Password and Confirm Password Are Not Matched");
     } else {
       dispatch(updateUserProfile({ userId: user._id, name, email, password }));
     }
   };
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -92,6 +87,8 @@ export default function ProfileScreen() {
                 id="password"
                 type="password"
                 placeholder="Enter password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>

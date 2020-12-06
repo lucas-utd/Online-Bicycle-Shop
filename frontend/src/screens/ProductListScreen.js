@@ -3,19 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createProduct,
   deleteProduct,
-
   restoreProduct,
   listProductsAdmin,
-
 } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
-
   PRODUCT_RESTORE_RESET,
-
 } from "../constants/productConstants";
 
 export default function ProductListScreen(props) {
@@ -67,20 +63,22 @@ export default function ProductListScreen(props) {
     successRestore,
   ]);
 
-
   const deleteHandler = (product) => {
     if (window.confirm("Are you sure to delete?")) {
       dispatch(deleteProduct(product._id));
     }
   };
+
   const restoreHandler = (product) => {
     if (window.confirm("Are you sure to restore?")) {
       dispatch(restoreProduct(product._id));
     }
   };
+
   const createHandler = () => {
     dispatch(createProduct());
   };
+
   return (
     <div>
       <div className="row">
