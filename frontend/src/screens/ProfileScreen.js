@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUserProfile } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { detailsUser, updateUserProfile } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import {
+  USER_UPDATE_PROFILE_RESET,
+  MIN_PASSWORD_LENGTH,
+} from "../constants/userConstants";
 
 export default function ProfileScreen() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -34,8 +37,10 @@ export default function ProfileScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
-    if (password !== confirmPassword) {
-      alert('Password and Confirm Password Are Not Matched');
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      alert(`Password must be ${MIN_PASSWORD_LENGTH} characters or longer`);
+    } else if (password !== confirmPassword) {
+      alert("Password and Confirm Password Are Not Matched");
     } else {
       dispatch(updateUserProfile({ userId: user._id, name, email, password }));
     }
