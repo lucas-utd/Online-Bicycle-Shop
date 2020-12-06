@@ -96,7 +96,7 @@ userRouter.get(
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
-    console.log("userRouter users " + users);
+    // console.log("userRouter users " + users);
   })
 );
 

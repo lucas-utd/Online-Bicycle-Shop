@@ -56,7 +56,7 @@ export const listProductsAdmin = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.get("/api/products/admin", {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `TESTTEST${userInfo.token}` },
     });
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -100,7 +100,7 @@ export const createProduct = () => async (dispatch, getState) => {
       "/api/products",
       {},
       {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
+        headers: { Authorization: `TESTTEST${userInfo.token}` },
       }
     );
     dispatch({
@@ -123,7 +123,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.put(`/api/products/${product._id}`, product, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `TESTTEST${userInfo.token}` },
     });
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {
@@ -142,7 +142,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = Axios.delete(`/api/products/${productId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `TESTTEST${userInfo.token}` },
     });
     dispatch({ type: PRODUCT_DELETE_SUCCESS });
   } catch (error) {
@@ -164,7 +164,7 @@ export const restoreProduct = (productId) => async (dispatch, getState) => {
       `/api/products/${productId}/restore`,
       {},
       {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
+        headers: { Authorization: `TESTTEST${userInfo.token}` },
       }
     );
     dispatch({ type: PRODUCT_RESTORE_SUCCESS });
@@ -190,7 +190,7 @@ export const createReview = (productId, review) => async (
       `/api/products/${productId}/reviews`,
       review,
       {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
+        headers: { Authorization: `TESTTEST${userInfo.token}` },
       }
     );
     dispatch({

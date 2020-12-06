@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { MIN_PASSWORD_LENGTH } from "../constants/userConstants";
 
 export default function RegisterScreen(props) {
   const [name, setName] = useState("");
@@ -22,9 +21,7 @@ export default function RegisterScreen(props) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password.length < MIN_PASSWORD_LENGTH) {
-      alert(`Password must be ${MIN_PASSWORD_LENGTH} characters or longer`);
-    } else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
       alert("Password and confirm password are not match");
     } else {
       dispatch(register(name, email, password));
@@ -35,6 +32,7 @@ export default function RegisterScreen(props) {
       props.history.push(redirect);
     }
   }, [props.history, redirect, userInfo]);
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
@@ -70,6 +68,8 @@ export default function RegisterScreen(props) {
             id="password"
             placeholder="Enter password"
             required
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
