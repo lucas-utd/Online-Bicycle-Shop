@@ -32,14 +32,8 @@ export default function HomeScreen() {
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))
-              : currentPage === 2
-              ? products
-                  .slice(2, 10)
-                  .map((product) => (
-                    <Product key={product._id} product={product}></Product>
-                  ))
               : products
-                  .slice(7)
+                  .slice(8)
                   .map((product) => (
                     <Product key={product._id} product={product}></Product>
                   ))}
@@ -71,15 +65,8 @@ export default function HomeScreen() {
             </button>
             {"  "}
             <button
-              disabled={currentPage === 3}
-              onClick={() => setCurrentPage(3)}
-            >
-              3
-            </button>
-            {"  "}
-            <button
-              disabled={currentPage === 3}
-              onClick={() => setCurrentPage(3)}
+              disabled={currentPage === 2}
+              onClick={() => setCurrentPage(2)}
             >
               Last
             </button>
