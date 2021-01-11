@@ -85,7 +85,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-- LinkedIn: [linkedin-url](https://linkedin.com/in/tao-chen-lucas)
+- LinkedIn: [linkedin](https://linkedin.com/in/tao-chen-lucas)
 
 - Project Link: [https://github.com/lucas-utd/Bicycles-Shop-Final](https://github.com/lucas-utd/Bicycles-Shop-Final)
 
@@ -98,7 +98,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[linkedin-url]: https://linkedin.com/in/tao-chen-lucas
+[linkedin]: https://linkedin.com/in/tao-chen-lucas
 [product-home-page]: images-readme/home-page.png
 [cart-page]: images-readme/cart-page.png
 [order-list-page]: images-readme/order-list-page.png
