@@ -94,6 +94,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Acknowledgements
 
 - [Bassir Jafarzadeh](https://github.com/basir)
+- [Victor Vu](https://github.com/vict8or)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
