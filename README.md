@@ -4,27 +4,27 @@
 
 It is an online bicycle shopping site as a final project for the course Web Programming Languages. The users can register, and login, and order the bikes. Users can change their profile and order history. The admin edits all users, users' orders, products list, create a new product.
 
-[![Product Name Screen Shot][product-home-page]](https://example.com)
+![Product Name Screen Shot][product-home-page]
 
 ### Search page
 
-[![Product Name Screen Shot][search-page]](https://example.com)
+![Product Name Screen Shot][search-page]
 
 ### Cart page
 
-[![Product Name Screen Shot][cart-page]](https://example.com)
+![Product Name Screen Shot][cart-page]
 
 ### Order list page
 
-[![Product Name Screen Shot][order-list-page]](https://example.com)
+![Product Name Screen Shot][order-list-page]
 
 ### Product list page
 
-[![Product Name Screen Shot][product-list-page]](https://example.com)
+![Product Name Screen Shot][product-list-page]
 
 ### User profile update page
 
-[![Product Name Screen Shot][user-update-profile-page]](https://example.com)
+![Product Name Screen Shot][user-update-profile-page]
 
 ### Built With
 
